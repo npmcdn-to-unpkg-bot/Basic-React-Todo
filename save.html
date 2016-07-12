@@ -1,0 +1,512 @@
+var HelloWorld = React.createClass({
+    render: function (){
+      return (
+        <p>hello, {this.props.greetTarget}</p>
+      );
+    }
+});
+
+var Buttonify = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <button type={this.props.behavior}>{this.props.children}</button>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <div>
+    <HelloWorld greetTarget="Traxxas"/>
+  </div>,
+  document.querySelector("#container")
+);
+
+ReactDOM.render(
+  <div>
+    <Buttonify behavior="submit">Send data<Buttonify/>
+  </div>,
+  document.querySelector("#container")
+);
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React Components</title>
+  <script src="https://fb.me/react-15.1.0.js"></script>
+  <script src="https://fb.me/react-dom-15.1.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+</head>
+
+<body>
+  <style>
+  #container {
+   padding: 50px;
+   background-color: #FFF;
+   }
+  </style>
+
+  <div id="container"></div>
+  <script type="text/babel">
+  var Card = React.createClass({
+    render: function() {
+    var cardStyle = {
+      height: 200,
+      width: 150,
+      padding: 0,
+      backgroundColor: "#FFF",
+      WebkitFilter: "drop-shadow(0px 0px 5px #666)",
+      filter: "drop-shadow(0px 0px 5px #666)"
+    };
+    return (
+      <div style={cardStyle}>
+        <Square color={this.props.color}/>
+        <Label color={this.props.color}/>
+        <Kolor colortext={this.props.colortext}/>
+      </div>
+    );
+  }
+});
+
+    var Square = React.createClass({
+      render: function () {
+        var squareStyle = {
+          height: 150,
+          backgroundColor: this.props.color
+        };
+        return (
+          <div style={squareStyle}>
+
+          </div>
+        );
+      }
+    });
+
+    var Kolor = React.createClass({
+        render: function () {
+          return(
+            <div>
+              <div>{this.props.colortext}</div>
+            </div>
+          );
+        }
+    });
+
+    var Label = React.createClass({
+      render: function () {
+        var labelStlye = {
+          fontFamily: "sans-seriff",
+          fontWeight: "bold",
+          padding: 13,
+          margin: 0
+        };
+        return (
+          <p style={labelStlye}>{this.props.color}</p>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <div>
+        <Card color="#FF6663" colortext="red"/>
+      </div>,
+      document.querySelector("#container")
+    );
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React! React! React!</title>
+  <script src="https://fb.me/react-0.14.7.js"></script>
+  <script src="https://fb.me/react-dom-0.14.7.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script type="text/babel">
+    var LightningCounter = React.createClass({
+      getInitialState: function () {
+        return {
+          strikes: 0
+        };
+      },
+      timerTick: function () {
+        this.setState({
+          strikes: this.state.strikes + 100
+        });
+      },
+      componentDidMount: function () {
+       setInterval(this.timerTick, 1000);
+      },
+      endTimer: function () {
+      console.log('clicked');
+        clearInterval(timer);
+      },
+      render: function() {
+        var counterStyle = {
+          color: "#66ffff",
+          fontSize: 30
+        };
+        var count = this.state.strikes.toLocaleString();
+        return (
+        <div>
+          <h1 style={counterStyle}>{count}</h1>
+          <button onClick={this.endTimer}>End</button>
+        </div>
+        );
+      }
+    });
+
+    var LightningCounterDisplay = React.createClass({
+        render: function() {
+          var commonStyle = {
+            margin: 0,
+            padding: 0
+          };
+          var divStyle = {
+            width: 250,
+            textAlign: "center",
+            backgroundColor: "black",
+            padding: 40,
+            fontFamily: "sans-serif",
+            color: "#999",
+            borderRadius: 10
+          };
+          var textStyles = {
+            emphasis: {
+              fontSize: 38,
+              ...commonStyle
+            },
+            small: {
+              fontSize: 17,
+              opacity: 0.5,
+              ...commonStyle
+            },
+            smallEmphasis: {
+              ...commonStyle
+            }
+          };
+          return(
+            <div style={divStyle}>
+              <LightningCounter/>
+              <h2 style={textStyles.smallEmphasis}>Lighting Strikes</h2>
+              <h3 style={textStyles.emphasis}>Worldwide</h3>
+              <p style={textStyles.small}>since you got here</p>
+            </div>
+          );
+        }
+    });
+
+    ReactDOM.render(
+      <LightningCounterDisplay/>,
+      document.querySelector("#container")
+    );
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React! React! React!</title>
+  <script src="https://fb.me/react-15.1.0.min.js"></script>
+  <script src="https://fb.me/react-dom-15.1.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+  <style>
+    #container {
+      padding: 50px;
+      background-color: #FFF;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script type="text/babel">
+    var Circle = React.createClass({
+      render: function() {
+          var circleStyle = {
+            padding: 10,
+            margin: 20,
+            display: "inline-block",
+            backgroundColor: this.props.bgColor,
+            borderRadius: "50%",
+            width: 100,
+            height: 100,
+          };
+
+          return (
+            <div style={circleStyle}>
+            </div>
+          );
+        }
+    });
+
+    //function showCircle() {
+      var renderData = [];
+      var colors = ["#393E41", "#E94F37", "#1C89BF", "#A1D363",
+              "#85FFC7", "#297373", "#FF8552", "#A40E4C"];
+      //var ran = Math.floor(Math.random() * colors.length);
+
+      for (var i = 0; i < colors.length; i++) {
+        var color = colors[i];
+        renderData.push(<Circle key={i + color} bgColor={color}/>)
+      }
+
+      //return <Circle bgColor={colors[ran]}/>;
+    //};
+    var destination = document.querySelector("#container");
+
+    ReactDOM.render(
+      <div>
+        {renderData}
+      </div>,
+      destination
+    );
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React! React! React!</title>
+<script src="https://fb.me/react-15.1.0.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+  <style>
+    #container {
+      padding: 50px;
+      background-color: #FFF;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script type="text/babel">
+    var destination = document.querySelector("#container");
+    var Counter = React.createClass({
+      render: function () {
+        var textStyle = {
+          fontSize: 32,
+          fontFamily: "sans-seriff",
+          color: "#333",
+          fontWeight: "bold"
+        };
+
+        return (
+          <div style={textStyle}>
+            {this.props.display}
+          </div>
+        );
+      }
+    });
+
+    var Plusbutton = React.createClass({
+        render: function () {
+          return (
+            <button onClick={this.props.clickHandler}>+</button>
+          );
+        }
+    });
+
+    var CounterParent = React.createClass({
+      getInitialState: function () {
+        return {
+          count: 0
+        };
+      },
+      increase: function (e) {
+        var currentCount = this.state.count;
+        if (e.shiftKey) {
+          currentCount += 10;
+        } else {
+          currentCount += 1;
+        }
+
+        this.setState({
+          count: currentCount
+        });
+      },
+      render: function () {
+        var backgroundStyle = {
+          padding: 50,
+          backgroundColor: "#ffc53a",
+          width: 250,
+          height: 100,
+          borderRadius: 10,
+          textAlign: "center"
+        };
+        var buttonStyle = {
+          fontSize: "1em",
+          width: 30,
+          height: 30,
+          fontFamily: "sans-seriff",
+          color: "#333",
+          fontWeight: "bold",
+          lineHeight: "3px"
+        };
+
+        return (
+          <div style={backgroundStyle}>
+            <Counter display={this.state.count}/>
+            <Plusbutton clickHandler={this.increase}/>
+          </div>
+        );
+      }
+    });
+
+    ReactDOM.render(
+      <div>
+        <CounterParent/>
+      </div>,
+      destination
+    );
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>React! React! React!</title>
+  <script src="https://fb.me/react-15.1.0.js"></script>
+  <script src="https://fb.me/react-dom-15.1.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <script src="https://npmcdn.com/react-router@2.4.0/umd/ReactRouter.min.js"></script>
+  <style>
+  body {
+    background-color: #ad1000;
+    padding: 20px;
+    margin: 0;
+    }
+  h1, h2, p, ul, li {
+    font-family: Helvetica, Arial, sans-serif;
+    }
+  ul.header li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    }
+  ul.header {
+    background-color: #111;
+    padding: 0;
+    }
+  ul.header li a {
+    color: #FFF;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 20px;
+    display: inline-block;
+    }
+  .content {
+    background-color: #FFF;
+    padding: 20px;
+    }
+  .content h2 {
+    padding: 0;
+    margin: 0;
+    }
+  .content li {
+    margin-bottom: 10px;
+    }
+  .active {
+    background-color: #0099ff;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+
+  </div>
+
+  <script type="text/babel">
+  //ES6 prefixing
+  var { Router,
+      Route,
+      IndexRoute,
+      IndexLink,
+      Link } = ReactRouter;
+
+    var destination = document.querySelector("#container");
+    var App = React.createClass({
+      render: function (){
+        return (
+        <div>
+          <h1>traxxas page</h1>
+          <ul className="header">
+            <li><IndexLink to="/" activeClassName="active">home</IndexLink></li>
+            <li><Link to="/cars" activeClassName="active">cars</Link></li>
+            <li><Link to="/trucks" activeClassName="active">trucks</Link></li>
+          </ul>
+          <div className="content">
+            {this.props.children}
+          </div>
+        </div>
+      )
+     }
+    });
+    var Home = React.createClass({
+      render: function () {
+        return (
+          <div>
+            <h2>Home</h2>
+            <p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has bee</p>
+          </div>
+        );
+      }
+    });
+    var Cars = React.createClass({
+      render: function () {
+        return (
+          <div>
+            <h2>Cars</h2>
+            <p>Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing </p>
+          </div>
+        );
+      }
+    });
+    var Trucks = React.createClass({
+      render: function () {
+        return (
+          <div>
+            <h2>Trucks</h2>
+            <p>Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing </p>
+          </div>
+        );
+      }
+    });
+    ReactDOM.render(
+      <Router>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home}/>
+          <Route path="cars" component={Cars}/>
+          <Route path="trucks" component={Trucks}/>
+        </Route>
+      </Router>,
+      destination
+    );
+  </script>
+</body>
+
+</html>
